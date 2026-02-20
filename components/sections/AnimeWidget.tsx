@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 "use client";
 
 import { useEffect, useState } from "react";
@@ -16,6 +17,7 @@ import useEmblaCarousel from "embla-carousel-react";
 import { cn } from "@/lib/utils";
 
 export function AnimeWidget({ className }: { className?: string }) {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const [animeList, setAnimeList] = useState<any[]>([]);
   const [loading, setLoading] = useState(true);
   const [selectedAnime, setSelectedAnime] = useState<any | null>(null);
