@@ -1,10 +1,30 @@
 import { NextResponse } from "next/server";
 import { SITE_CONFIG } from "@/lib/config";
 
+// 1. Define the GitHub Repo interface for type safety
+interface GitHubRepo {
+  id: number;
+  name: string;
+  description: string | null;
+  stargazers_count: number;
+  language: string | null;
+  html_url: string;
+  homepage: string | null;
+  private: boolean;
+  fork: boolean;
+  topics?: string[];
+}
+
 export async function GET() {
-  const token = process.env.GITHUB_TOKEN!;
+  const token = process.env.GITHUB_TOKEN;
   const username = SITE_CONFIG.github.username;
   const FEATURE_TAG = "portfolio-feature";
+
+  // 2. Safeguard against missing tokens
+  if (!token) {
+    console.error("Missing GITHUB_TOKEN in environment variables");
+    return NextResponse.json({ error: "Configuration error" }, { status: 500 });
+  }
 
   try {
     const res = await fetch(
@@ -13,6 +33,7 @@ export async function GET() {
         headers: {
           Authorization: `Bearer ${token}`,
           Accept: "application/vnd.github+json",
+          "X-GitHub-Api-Version": "2022-11-28",
         },
         next: { revalidate: 3600 },
       },
@@ -26,11 +47,14 @@ export async function GET() {
       );
     }
 
-    const repos = await res.json();
+    const repos: GitHubRepo[] = await res.json();
 
+    // 3. Filter and Map using the defined interface
     const projects = repos
-      .filter((repo: any) => !repo.fork && repo.topics?.includes(FEATURE_TAG))
-      .map((repo: any) => ({
+      .filter(
+        (repo: GitHubRepo) => !repo.fork && repo.topics?.includes(FEATURE_TAG),
+      )
+      .map((repo: GitHubRepo) => ({
         id: repo.id,
         title: repo.name.replace(/[-_]/g, " "),
         description:
@@ -44,7 +68,8 @@ export async function GET() {
       }));
 
     return NextResponse.json(projects);
-  } catch {
+  } catch (err) {
+    console.error("GitHub Projects Fetch Error:", err);
     return NextResponse.json(
       { error: "Failed to fetch repos" },
       { status: 500 },

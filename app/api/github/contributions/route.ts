@@ -1,6 +1,16 @@
 import { NextResponse } from "next/server";
 import { SITE_CONFIG } from "@/lib/config";
 
+// Interface to handle the nested data structure from GitHub GraphQL
+interface ContributionDay {
+  date: string;
+  contributionCount: number;
+}
+
+interface ContributionWeek {
+  contributionDays: ContributionDay[];
+}
+
 export async function GET() {
   const token = process.env.GITHUB_TOKEN;
   const username = SITE_CONFIG.github.username;
@@ -47,11 +57,11 @@ export async function GET() {
       return NextResponse.json([]);
     }
 
-    const weeks =
+    const weeks: ContributionWeek[] =
       json.data.user.contributionsCollection.contributionCalendar.weeks;
 
-    const formatted = weeks.map((week: any) =>
-      week.contributionDays.map((day: any) => ({
+    const formatted = weeks.map((week: ContributionWeek) =>
+      week.contributionDays.map((day: ContributionDay) => ({
         date: day.date,
         count: day.contributionCount,
       })),

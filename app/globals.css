@@ -13,6 +13,9 @@
   --color-foreground: var(--foreground);
   --color-card: var(--card-bg);
   --color-accent: var(--accent);
+
+  /* Standardizing your Bento Height here */
+  --spacing-112: 28rem;
 }
 
 /* Smooth scrolling for your portfolio sections */
@@ -28,24 +31,23 @@ body {
   -webkit-font-smoothing: antialiased;
 }
 
-/* Custom scrollbar to match your dark theme */
-::-webkit-scrollbar {
-  width: 8px;
+/* Thin custom scrollbar for ProjectCard descriptions */
+.custom-scrollbar::-webkit-scrollbar {
+  width: 4px;
 }
 
-::-webkit-scrollbar-track {
-  background: #0a0a0a;
+.custom-scrollbar::-webkit-scrollbar-track {
+  background: transparent;
 }
 
-::-webkit-scrollbar-thumb {
-  background: #222;
+.custom-scrollbar::-webkit-scrollbar-thumb {
+  background: #27272a;
   border-radius: 10px;
 }
 
-::-webkit-scrollbar-thumb:hover {
-  background: #333;
+.custom-scrollbar::-webkit-scrollbar-thumb:hover {
+  background: #3f3f46;
 }
-
 /* globals.css */
 @layer base {
   a,
