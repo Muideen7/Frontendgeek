@@ -31,6 +31,7 @@ export function ProfileCard({
       .then((data) => setUserData(data))
       .catch((err) => console.error("Error fetching GitHub data:", err));
 
+    // eslint-disable-next-line react-hooks/set-state-in-effect
     setIsOnline(navigator.onLine);
     const handleOnline = () => setIsOnline(true);
     const handleOffline = () => setIsOnline(false);
@@ -81,7 +82,7 @@ export function ProfileCard({
         <div className="flex-1">
           {/* ONLY THE NAME IS BOLD/HEADING NOW */}
           <h1 className="text-2xl font-black text-white mb-2 tracking-tight">
-            Hi, I'm {SITE_CONFIG.name}
+            Hi, I&apos;m {SITE_CONFIG.name}
           </h1>
 
           {/* THE REST IS NORMAL TEXT */}

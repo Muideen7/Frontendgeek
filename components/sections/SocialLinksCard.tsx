@@ -51,7 +51,7 @@ const socialLinks = [
 export function SocialLinksCard({ className }: { className?: string }) {
   return (
     <Card id="social-links" className={className}>
-      <h3 className="text-[11px] font-bold tracking-[0.1em] text-gray-300 mb-5">
+      <h3 className="text-[11px] font-bold tracking-widest text-gray-300 mb-5">
         CONNECT WITH ME
       </h3>
       <div className="grid grid-cols-3 gap-3">

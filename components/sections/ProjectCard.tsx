@@ -99,7 +99,7 @@ export function ProjectCard({ className, id }: ProjectCardProps) {
     return (
       <Card
         className={cn(
-          "h-[28rem] flex flex-col items-center justify-center border-zinc-800 bg-zinc-950",
+          "h-112 flex flex-col items-center justify-center border-zinc-800 bg-zinc-950",
           className,
         )}
         role="status"
@@ -122,7 +122,7 @@ export function ProjectCard({ className, id }: ProjectCardProps) {
     return (
       <Card
         className={cn(
-          "h-[28rem] flex flex-col items-center justify-center text-center p-8 border-red-900/30 bg-red-950/20",
+          "h-112 flex flex-col items-center justify-center text-center p-8 border-red-900/30 bg-red-950/20",
           className,
         )}
         role="alert"
@@ -150,7 +150,7 @@ export function ProjectCard({ className, id }: ProjectCardProps) {
     return (
       <Card
         className={cn(
-          "h-[28rem] flex flex-col items-center justify-center text-center p-8 border-zinc-800 bg-zinc-950",
+          "h-112 flex flex-col items-center justify-center text-center p-8 border-zinc-800 bg-zinc-950",
           className,
         )}
       >
@@ -182,7 +182,7 @@ export function ProjectCard({ className, id }: ProjectCardProps) {
     >
       {/* Project Preview Image */}
       <div className="relative aspect-video overflow-hidden bg-zinc-900">
-        <div className="absolute inset-0 bg-gradient-to-br from-blue-600/10 via-transparent to-purple-600/10 z-10" />
+        <div className="absolute inset-0 bg-linear-to-br from-blue-600/10 via-transparent to-purple-600/10 z-10" />
         <Image
           src={ogImageUrl}
           alt={`${project.title} project preview`}
@@ -245,7 +245,7 @@ export function ProjectCard({ className, id }: ProjectCardProps) {
 
   const back = (
     <Card
-      className="h-full bg-gradient-to-br from-zinc-900 to-zinc-950 border-blue-500/20 p-6 sm:p-8 flex flex-col cursor-pointer"
+      className="h-full bg-linear-to-br from-zinc-900 to-zinc-950 border-blue-500/20 p-6 sm:p-8 flex flex-col cursor-pointer"
       role="button"
       tabIndex={0}
       aria-label={`Return to ${project.title} preview`}
@@ -351,7 +351,7 @@ export function ProjectCard({ className, id }: ProjectCardProps) {
   return (
     <FlipCard
       id={id}
-      className={cn("h-[28rem]", className)}
+      className={cn("h-112", className)}
       front={front}
       back={back}
       trigger="click"

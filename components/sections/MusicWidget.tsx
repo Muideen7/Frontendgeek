@@ -83,7 +83,8 @@ export function MusicWidget({ className }: MusicWidgetProps) {
       if (!response.ok) {
         const errorData = await response.json().catch(() => ({}));
         throw new Error(
-          errorData.error || `Failed to fetch music playlist (${response.status})`,
+          errorData.error ||
+            `Failed to fetch music playlist (${response.status})`,
         );
       }
 
@@ -95,11 +96,9 @@ export function MusicWidget({ className }: MusicWidgetProps) {
 
       const validTracks = data
         .filter(
+          // eslint-disable-next-line @typescript-eslint/no-explicit-any
           (item): item is any =>
-            item?.id &&
-            item?.title &&
-            item?.thumbnail &&
-            item?.url,
+            item?.id && item?.title && item?.thumbnail && item?.url,
         )
         .map((item) => ({
           id: item.id,
@@ -152,7 +151,7 @@ export function MusicWidget({ className }: MusicWidgetProps) {
     return (
       <Card
         className={cn(
-          "h-[450px] flex flex-col items-center justify-center border-zinc-800 bg-zinc-950",
+          "h-112.5 flex flex-col items-center justify-center border-zinc-800 bg-zinc-950",
           className,
         )}
         role="status"
@@ -160,7 +159,10 @@ export function MusicWidget({ className }: MusicWidgetProps) {
         aria-label="Loading music playlist"
       >
         <div className="relative w-16 h-16 mb-4">
-          <Disc3 className="w-16 h-16 text-red-500 animate-spin" style={{ animationDuration: "3s" }} />
+          <Disc3
+            className="w-16 h-16 text-red-500 animate-spin"
+            style={{ animationDuration: "3s" }}
+          />
         </div>
         <p className="text-sm text-zinc-500 font-medium">
           Loading your music...
@@ -173,7 +175,7 @@ export function MusicWidget({ className }: MusicWidgetProps) {
     return (
       <Card
         className={cn(
-          "h-[450px] flex flex-col items-center justify-center text-center p-8 border-red-900/30 bg-red-950/20",
+          "h-112.5 flex flex-col items-center justify-center text-center p-8 border-red-900/30 bg-red-950/20",
           className,
         )}
         role="alert"
@@ -200,7 +202,7 @@ export function MusicWidget({ className }: MusicWidgetProps) {
     return (
       <Card
         className={cn(
-          "h-[450px] flex flex-col items-center justify-center text-center p-8 border-zinc-800 bg-zinc-950",
+          "h-112.5 flex flex-col items-center justify-center text-center p-8 border-zinc-800 bg-zinc-950",
           className,
         )}
       >
@@ -215,7 +217,10 @@ export function MusicWidget({ className }: MusicWidgetProps) {
           </code>
         </p>
         <p className="text-xs text-zinc-600 mt-2 mb-4">
-          Add <code className="px-1.5 py-0.5 bg-zinc-900 rounded font-mono">NEXT_PUBLIC_YOUTUBE_MUSIC_PLAYLIST_ID</code>
+          Add{" "}
+          <code className="px-1.5 py-0.5 bg-zinc-900 rounded font-mono">
+            NEXT_PUBLIC_YOUTUBE_MUSIC_PLAYLIST_ID
+          </code>
         </p>
         <Button
           onClick={fetchMusic}
@@ -232,7 +237,10 @@ export function MusicWidget({ className }: MusicWidgetProps) {
 
   return (
     <Card
-      className={cn("h-[450px] flex flex-col border-zinc-800 bg-zinc-950", className)}
+      className={cn(
+        "h-112.5 flex flex-col border-zinc-800 bg-zinc-950",
+        className,
+      )}
       role="region"
       aria-label="YouTube Music playlist"
     >
@@ -295,8 +303,8 @@ export function MusicWidget({ className }: MusicWidgetProps) {
               aria-label={`Music page ${pageIndex + 1} of ${pages.length}`}
             >
               {page.map((track, trackIndex) => (
-                
-                 <a key={track.id}
+                <a
+                  key={track.id}
                   href={track.url}
                   target="_blank"
                   rel="noopener noreferrer"
@@ -310,7 +318,9 @@ export function MusicWidget({ className }: MusicWidgetProps) {
                       fill
                       sizes="(max-width: 768px) 33vw, 200px"
                       className="object-cover group-hover:scale-110 transition-transform duration-500 ease-out"
-                      loading={pageIndex === 0 && trackIndex < 3 ? "eager" : "lazy"}
+                      loading={
+                        pageIndex === 0 && trackIndex < 3 ? "eager" : "lazy"
+                      }
                     />
 
                     <div className="absolute inset-0 flex items-center justify-center bg-black/50 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
@@ -319,7 +329,7 @@ export function MusicWidget({ className }: MusicWidgetProps) {
                       </div>
                     </div>
 
-                    <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/95 via-black/70 to-transparent p-2.5 translate-y-full group-hover:translate-y-0 transition-transform duration-300">
+                    <div className="absolute inset-x-0 bottom-0 bg-linear-to-t from-black/95 via-black/70 to-transparent p-2.5 translate-y-full group-hover:translate-y-0 transition-transform duration-300">
                       <p className="text-[11px] text-white font-semibold line-clamp-2 leading-tight mb-1">
                         {track.title}
                       </p>
@@ -378,7 +388,9 @@ export function MusicWidget({ className }: MusicWidgetProps) {
                   : "w-1.5 bg-zinc-700 hover:bg-zinc-600",
               )}
               aria-label={`Go to page ${index + 1}`}
-              aria-current={emblaApi?.selectedScrollSnap() === index ? "true" : "false"}
+              aria-current={
+                emblaApi?.selectedScrollSnap() === index ? "true" : "false"
+              }
               type="button"
             />
           ))}

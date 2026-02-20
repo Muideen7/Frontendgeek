@@ -30,6 +30,7 @@ export function GitHubActivity({ className }: { className?: string }) {
       }
       data.push(weekData);
     }
+    // eslint-disable-next-line react-hooks/set-state-in-effect
     setContributions(data);
 
     // Fetch recent commits
@@ -63,7 +64,7 @@ export function GitHubActivity({ className }: { className?: string }) {
       <div className="flex items-center justify-between mb-5">
         <div className="flex items-center gap-2">
           <Github className="w-5 h-5 text-white" />
-          <h3 className="text-[11px] font-bold tracking-[0.1em] text-gray-300">
+          <h3 className="text-[11px] font-bold tracking-widest text-gray-300">
             GITHUB ACTIVITY
           </h3>
         </div>
@@ -72,9 +73,9 @@ export function GitHubActivity({ className }: { className?: string }) {
         </Badge>
       </div>
 
-      <div className="flex gap-[2px] overflow-x-auto pb-2 scrollbar-hide">
+      <div className="flex gap-0.5 overflow-x-auto pb-2 scrollbar-hide">
         {contributions.map((week, weekIndex) => (
-          <div key={weekIndex} className="flex flex-col gap-[2px]">
+          <div key={weekIndex} className="flex flex-col gap-0.5">
             {week.map((count, dayIndex) => (
               <div
                 key={`${weekIndex}-${dayIndex}`}
@@ -111,7 +112,7 @@ export function GitHubActivity({ className }: { className?: string }) {
 
   // Back side - Recent commits
   const back = (
-    <Card className="h-full bg-gradient-to-br from-gray-950 to-black overflow-y-auto max-h-[600px]">
+    <Card className="h-full bg-linear-to-br from-gray-950 to-black overflow-y-auto max-h-150">
       <div className="flex items-center gap-2 mb-5">
         <GitCommit className="w-5 h-5 text-emerald-400" />
         <h3 className="text-sm font-bold text-white">Recent Commits</h3>

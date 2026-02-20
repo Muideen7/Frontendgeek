@@ -14,6 +14,7 @@ export function ClockWidget({ className }: ClockWidgetProps) {
   const [time, setTime] = useState(new Date());
 
   useEffect(() => {
+    // eslint-disable-next-line react-hooks/set-state-in-effect
     setMounted(true);
     const timer = setInterval(() => setTime(new Date()), 1000);
     return () => clearInterval(timer);
