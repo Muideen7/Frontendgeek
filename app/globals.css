@@ -1,0 +1,86 @@
+@import "tailwindcss";
+
+:root {
+  /* Force a dark aesthetic even in "light" mode based on your UI code */
+  --background: #050505;
+  --foreground: #fafafa;
+  --card-bg: #0d0d0d;
+  --accent: #10b981; /* Emerald-500 */
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card-bg);
+  --color-accent: var(--accent);
+}
+
+/* Smooth scrolling for your portfolio sections */
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background-color: var(--background);
+  color: var(--foreground);
+  /* Use a more modern stack than Arial */
+  font-family: var(--font-sans), system-ui, sans-serif;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* Custom scrollbar to match your dark theme */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: #0a0a0a;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #222;
+  border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #333;
+}
+
+/* globals.css */
+@layer base {
+  a,
+  button,
+  [role="button"],
+  .cursor-pointer,
+  .embla__slide {
+    cursor: pointer !important;
+  }
+
+  /* Ensure Navigation links show pointer */
+  nav a,
+  nav button {
+    cursor: pointer;
+  }
+
+  /* Specifically for your Bento cards */
+  #music-widget,
+  #anime-widget,
+  #anime-detail,
+  .perspective-1000 {
+    cursor: pointer;
+  }
+}
+
+/* Add these for the 3D Flip effect used in ProjectCard */
+.perspective-1000 {
+  perspective: 1000px;
+}
+.preserve-3d {
+  transform-style: preserve-3d;
+}
+.backface-hidden {
+  backface-visibility: hidden;
+}
+.rotate-y-180 {
+  transform: rotateY(180deg);
+}
