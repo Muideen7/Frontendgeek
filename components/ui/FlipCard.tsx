@@ -11,6 +11,7 @@ interface FlipCardProps {
   back: ReactNode;
   expandOnFlip?: boolean;
   trigger?: "click" | "hover";
+  onFlip?: () => void;
 }
 
 export function FlipCard({

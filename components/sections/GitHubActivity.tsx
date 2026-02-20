@@ -6,6 +6,11 @@ import { FlipCard } from "@/components/ui/FlipCard";
 import { Badge } from "@/components/ui/Badge";
 import { Github, GitCommit } from "lucide-react";
 
+interface ContributionDay {
+  date: string;
+  count: number;
+}
+
 interface Commit {
   repo: string;
   commits: { message: string; sha: string }[];
@@ -13,52 +18,53 @@ interface Commit {
 }
 
 export function GitHubActivity({ className }: { className?: string }) {
-  const [contributions, setContributions] = useState<number[][]>([]);
+  const [contributions, setContributions] = useState<ContributionDay[][]>([]);
   const [commits, setCommits] = useState<Commit[]>([]);
-  const [loading, setLoading] = useState(true);
+  const [loadingCommits, setLoadingCommits] = useState(false);
+  const [commitsLoaded, setCommitsLoaded] = useState(false);
 
+  // ================= LOAD CONTRIBUTIONS IMMEDIATELY =================
   useEffect(() => {
-    // Generate contribution heatmap (mock data - can be replaced with real GitHub GraphQL data)
-    const weeks = 26;
-    const days = 7;
-    const data: number[][] = [];
-
-    for (let week = 0; week < weeks; week++) {
-      const weekData: number[] = [];
-      for (let day = 0; day < days; day++) {
-        weekData.push(Math.floor(Math.random() * 11));
-      }
-      data.push(weekData);
-    }
-    // eslint-disable-next-line react-hooks/set-state-in-effect
-    setContributions(data);
-
-    // Fetch recent commits
-    fetch("/api/github/commits")
+    fetch("/api/github/contributions")
       .then((res) => res.json())
       .then((data) => {
-        setCommits(data);
-        setLoading(false);
+        setContributions(data);
       })
-      .catch((err) => {
-        console.error("Error fetching commits:", err);
-        setLoading(false);
-      });
+      .catch((err) => console.error(err));
   }, []);
 
-  const getContributionColor = (count: number) => {
+  // ================= LAZY LOAD COMMITS =================
+  const loadCommits = async () => {
+    if (commitsLoaded) return;
+
+    setLoadingCommits(true);
+
+    try {
+      const res = await fetch("/api/github/commits");
+      const data = await res.json();
+      setCommits(data);
+      setCommitsLoaded(true);
+    } catch (err) {
+      console.error(err);
+    } finally {
+      setLoadingCommits(false);
+    }
+  };
+
+  // ================= TOTAL CONTRIBUTIONS =================
+  const totalContributions = contributions
+    .flat()
+    .reduce((sum, day) => sum + day.count, 0);
+
+  const getColor = (count: number) => {
     if (count === 0) return "bg-gray-900";
     if (count <= 2) return "bg-emerald-900/40";
-    if (count <= 4) return "bg-emerald-700/60";
-    if (count <= 7) return "bg-emerald-500/80";
+    if (count <= 5) return "bg-emerald-700/60";
+    if (count <= 10) return "bg-emerald-500/80";
     return "bg-emerald-400";
   };
 
-  const startDate = new Date();
-  startDate.setMonth(startDate.getMonth() - 6);
-  const endDate = new Date();
-
-  // Front side - Contribution heatmap
+  // ================= FRONT =================
   const front = (
     <Card className="h-full">
       <div className="flex items-center justify-between mb-5">
@@ -69,48 +75,35 @@ export function GitHubActivity({ className }: { className?: string }) {
           </h3>
         </div>
         <Badge variant="outline" className="text-[10px]">
-          LAST 6 MONTHS
+          {totalContributions} contributions
         </Badge>
       </div>
 
       <div className="flex gap-0.5 overflow-x-auto pb-2 scrollbar-hide">
         {contributions.map((week, weekIndex) => (
           <div key={weekIndex} className="flex flex-col gap-0.5">
-            {week.map((count, dayIndex) => (
+            {week.map((day, dayIndex) => (
               <div
                 key={`${weekIndex}-${dayIndex}`}
-                className={`w-3 h-3 rounded-sm ${getContributionColor(count)} transition-colors`}
-                title={`${count} contributions`}
+                className={`w-3 h-3 rounded-sm ${getColor(
+                  day.count,
+                )} hover:scale-110 transition`}
+                title={`${new Date(day.date).toLocaleDateString()} — ${
+                  day.count
+                } contributions`}
               />
             ))}
           </div>
         ))}
       </div>
 
-      <div className="flex justify-between text-[10px] text-gray-500 mt-3 mb-3">
-        <span>
-          {startDate.toLocaleDateString("en-US", {
-            month: "short",
-            day: "numeric",
-            year: "numeric",
-          })}
-        </span>
-        <span>
-          {endDate.toLocaleDateString("en-US", {
-            month: "short",
-            day: "numeric",
-            year: "numeric",
-          })}
-        </span>
-      </div>
-
-      <p className="text-xs text-gray-600 italic text-center">
+      <p className="text-xs text-gray-600 italic text-center mt-3">
         Click to see commit history →
       </p>
     </Card>
   );
 
-  // Back side - Recent commits
+  // ================= BACK =================
   const back = (
     <Card className="h-full bg-linear-to-br from-gray-950 to-black overflow-y-auto max-h-150">
       <div className="flex items-center gap-2 mb-5">
@@ -118,7 +111,7 @@ export function GitHubActivity({ className }: { className?: string }) {
         <h3 className="text-sm font-bold text-white">Recent Commits</h3>
       </div>
 
-      {loading ? (
+      {loadingCommits ? (
         <div className="space-y-3">
           {[...Array(5)].map((_, i) => (
             <div
@@ -128,10 +121,7 @@ export function GitHubActivity({ className }: { className?: string }) {
           ))}
         </div>
       ) : commits.length === 0 ? (
-        <div className="text-center py-12 text-gray-500">
-          <GitCommit className="w-12 h-12 mx-auto mb-3 opacity-30" />
-          <p className="text-sm">No recent commits found</p>
-        </div>
+        <p className="text-gray-500 text-sm">No recent commits found.</p>
       ) : (
         <div className="space-y-4">
           {commits.map((commit, index) => (
@@ -143,12 +133,7 @@ export function GitHubActivity({ className }: { className?: string }) {
                 {commit.repo}
               </div>
               <div className="text-[11px] text-gray-500 mb-2">
-                {new Date(commit.createdAt).toLocaleDateString("en-US", {
-                  month: "short",
-                  day: "numeric",
-                  hour: "2-digit",
-                  minute: "2-digit",
-                })}
+                {new Date(commit.createdAt).toLocaleDateString()}
               </div>
               {commit.commits.slice(0, 2).map((c, i) => (
                 <div key={i} className="text-sm text-gray-300 mb-1">
@@ -162,10 +147,6 @@ export function GitHubActivity({ className }: { className?: string }) {
           ))}
         </div>
       )}
-
-      <p className="text-xs text-gray-600 mt-4 italic text-center">
-        Click to return →
-      </p>
     </Card>
   );
 
@@ -175,8 +156,9 @@ export function GitHubActivity({ className }: { className?: string }) {
       className={className}
       front={front}
       back={back}
-      expandOnFlip={true}
+      expandOnFlip
       trigger="click"
+      onFlip={loadCommits} // 👈 LAZY LOAD HERE
     />
   );
 }

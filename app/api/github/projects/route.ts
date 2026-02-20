@@ -2,9 +2,9 @@ import { NextResponse } from "next/server";
 import { SITE_CONFIG } from "@/lib/config";
 
 export async function GET() {
-  const token = SITE_CONFIG.github.token;
+  const token = process.env.GITHUB_TOKEN!;
   const username = SITE_CONFIG.github.username;
-  const FEATURE_TAG = "portfolio-feature"; // Tag your repos with this on GitHub
+  const FEATURE_TAG = "portfolio-feature";
 
   try {
     const res = await fetch(
@@ -12,29 +12,29 @@ export async function GET() {
       {
         headers: {
           Authorization: `Bearer ${token}`,
-          "X-GitHub-Api-Version": "2022-11-28",
           Accept: "application/vnd.github+json",
         },
         next: { revalidate: 3600 },
       },
     );
 
-    const repos = await res.json();
-
     if (!res.ok) {
+      const error = await res.json();
       return NextResponse.json(
-        { error: repos.message },
+        { error: error.message },
         { status: res.status },
       );
     }
 
+    const repos = await res.json();
+
     const projects = repos
-      .filter((repo: any) => repo.topics && repo.topics.includes(FEATURE_TAG))
+      .filter((repo: any) => !repo.fork && repo.topics?.includes(FEATURE_TAG))
       .map((repo: any) => ({
         id: repo.id,
-        title: repo.name.replace(/-/g, " ").replace(/_/g, " "),
+        title: repo.name.replace(/[-_]/g, " "),
         description:
-          repo.description ||
+          repo.description ??
           "A technical exploration and project showcase hosted on GitHub.",
         stars: repo.stargazers_count,
         language: repo.language,
@@ -44,7 +44,7 @@ export async function GET() {
       }));
 
     return NextResponse.json(projects);
-  } catch (_error) {
+  } catch {
     return NextResponse.json(
       { error: "Failed to fetch repos" },
       { status: 500 },
