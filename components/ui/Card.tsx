@@ -1,11 +1,12 @@
 "use client";
 
-import { forwardRef, HTMLAttributes } from "react";
-import { motion } from "framer-motion";
+import React, { forwardRef } from "react"; // Added React import
+import { motion, HTMLMotionProps } from "framer-motion";
 import { cn } from "@/lib/utils";
 
-interface CardProps extends HTMLAttributes<HTMLDivElement> {
+interface CardProps extends HTMLMotionProps<"div"> {
   hover?: boolean;
+  children?: React.ReactNode; // Explicitly typed to stop the flagging
 }
 
 export const Card = forwardRef<HTMLDivElement, CardProps>(
@@ -20,7 +21,6 @@ export const Card = forwardRef<HTMLDivElement, CardProps>(
         whileHover={hover ? { y: -4, scale: 1.01 } : undefined}
         className={cn(
           "relative rounded-3xl overflow-hidden transition-all duration-500",
-          // SATIN GRADIENT: Mid-grey to deep charcoal (Professional & Readable)
           "bg-linear-to-b from-[#1c1c1c] via-[#141414] to-[#0a0a0a]",
           "backdrop-blur-xl border border-white/10",
           "w-full h-full flex flex-col",
@@ -30,13 +30,17 @@ export const Card = forwardRef<HTMLDivElement, CardProps>(
         )}
         {...props}
       >
-        {/* SUBTLE INNER GLOW: Adds depth without being a "mesh" */}
-        <div className="absolute inset-0 z-0 pointer-events-none bg-[radial-gradient(circle_at_50%_0%,rgba(255,255,255,0.03)_0%,transparent_70%)]" />
+        <div
+          className="absolute inset-0 z-0 pointer-events-none bg-[radial-gradient(circle_at_50%_0%,rgba(255,255,255,0.03)_0%,transparent_70%)]"
+          aria-hidden="true"
+        />
 
-        {/* REFINED GRAIN: Using an external SVG to fix your 404 error */}
-        <div className="absolute inset-0 opacity-[0.02] pointer-events-none bg-[url('https://grainy-gradients.vercel.app/noise.svg')] mix-blend-overlay" />
+        <div
+          className="absolute inset-0 opacity-[0.02] pointer-events-none bg-[url('https://grainy-gradients.vercel.app/noise.svg')] mix-blend-overlay"
+          aria-hidden="true"
+        />
 
-        {/* CONTENT LAYER */}
+        {/* This is the content layer that was flagging line 52 */}
         <div className="relative z-10 flex flex-col flex-1 p-6 overflow-hidden">
           {children}
         </div>
