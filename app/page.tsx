@@ -38,7 +38,13 @@ export default function Home() {
       <div className="relative z-10 max-w-275 mx-auto">
         <ScrollProgress />
 
-        <motion.div className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-6 md:grid-auto-rows-[28rem]">
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          // Remove the fixed [28rem] from grid-auto-rows
+          // Use auto-rows-min so the grid row shrinks/grows with the card
+          className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-6 auto-rows-min"
+        >
           {/* ROW 1: Header & Status */}
           <ProfileCard />
           <ClockWidget onClick={scrollToTop} />

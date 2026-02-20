@@ -45,7 +45,8 @@ export function FlipCard({
   return (
     <motion.div
       id={id}
-      className={cn("relative preserve-3d cursor-pointer", className)}
+      // ADDED: h-full to ensure the container doesn't collapse
+      className={cn("relative preserve-3d cursor-pointer h-full", className)}
       onClick={handleInteraction}
       onMouseEnter={handleHover}
       onMouseLeave={handleLeave}
@@ -63,7 +64,8 @@ export function FlipCard({
             animate={{ rotateY: 0 }}
             exit={{ rotateY: 90 }}
             transition={{ duration: 0.3 }}
-            className="backface-hidden"
+            // ADDED: h-full w-full
+            className="backface-hidden h-full w-full"
           >
             {front}
           </motion.div>
@@ -74,7 +76,8 @@ export function FlipCard({
             animate={{ rotateY: 0 }}
             exit={{ rotateY: 0 }}
             transition={{ duration: 0.3 }}
-            className="backface-hidden"
+            // ADDED: h-full w-full
+            className="backface-hidden h-full w-full"
           >
             {back}
           </motion.div>
