@@ -1,26 +1,29 @@
-import { ButtonHTMLAttributes, forwardRef } from "react";
+import { HTMLAttributes, forwardRef, ElementType } from "react";
 import { cn } from "@/lib/utils";
 
-interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
+interface ButtonProps extends HTMLAttributes<HTMLElement> {
   variant?: "primary" | "secondary";
   as?: "button" | "a";
   href?: string;
   target?: string;
   rel?: string;
+  // Adding type for buttons, optional for links
+  type?: "button" | "submit" | "reset";
 }
 
-export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
+export const Button = forwardRef<HTMLElement, ButtonProps>(
   (
     { className, variant = "primary", as = "button", children, ...props },
     ref,
   ) => {
-    const Component = as;
+    // Cast to ElementType to allow dynamic rendering
+    const Component = as as ElementType;
 
     return (
       <Component
-        ref={ref as any}
+        ref={ref}
         className={cn(
-          "px-6 py-2.5 rounded-xl font-semibold transition-all duration-200",
+          "px-6 py-2.5 rounded-xl font-semibold transition-all duration-200 flex items-center justify-center gap-2",
           "hover:scale-105 active:scale-95",
           variant === "primary" &&
             "bg-emerald-500 hover:bg-emerald-600 text-white shadow-lg shadow-emerald-500/20",

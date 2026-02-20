@@ -64,7 +64,7 @@ body {
     cursor: pointer;
   }
 
-  /* Specifically for your Bento cards */
+  /* Specifically for Bento cards */
   #music-widget,
   #anime-widget,
   #anime-detail,
@@ -73,7 +73,7 @@ body {
   }
 }
 
-/* Add these for the 3D Flip effect used in ProjectCard */
+/* Added for the 3D Flip effect used in ProjectCard */
 .perspective-1000 {
   perspective: 1000px;
 }
