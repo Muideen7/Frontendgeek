@@ -7,6 +7,7 @@ import { cn } from "@/lib/utils";
 
 interface ClockWidgetProps {
   className?: string;
+  onClick?: () => void;
 }
 
 export function ClockWidget({ className }: ClockWidgetProps) {
