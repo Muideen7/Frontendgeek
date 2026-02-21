@@ -3,50 +3,60 @@ import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 
 export const metadata: Metadata = {
-  title: "Olayeye Muideen | Creative Developer & Anime Archivist",
+  metadataBase: new URL("https://frontendgeek.vercel.app"),
+
+  title: {
+    default: "Olayeye Muideen | Creative Developer & Anime Archivist",
+    template: "%s | Olayeye Muideen",
+  },
+
   description:
     "Bento-style portfolio showcasing curated GitHub projects, AniList archives, and musical taste.",
-  metadataBase: new URL("https://your-portfolio-domain.com"),
+
   keywords: [
     "Software Engineer",
     "Frontend Developer",
+    "Creative Developer",
+    "Anime Archivist",
+    "Next.js Developer",
     "Bento Grid Portfolio",
-    "Next.js 15",
   ],
+
   authors: [{ name: "Olayeye Muideen" }],
+
+  alternates: {
+    canonical: "https://frontendgeek.vercel.app",
+  },
+
   openGraph: {
-    title: "YourName | Digital Portfolio",
-    description: "Exploring the intersection of code, design, and culture.",
-    url: "https://your-portfolio-domain.com",
-    siteName: "YourName Portfolio",
+    title: "Olayeye Muideen | Creative Developer & Anime Archivist",
+    description:
+      "Exploring the intersection of code, design, and culture.",
+    url: "https://frontendgeek.vercel.app",
+    siteName: "FrontendGeek Portfolio",
     images: [
       {
-        url: "/og-preview.png", // Place a 1200x630 image in your /public folder
+        url: "/api/og",
         width: 1200,
         height: 630,
-        alt: "Portfolio Preview",
+        alt: "Olayeye Muideen Portfolio Preview",
       },
     ],
     locale: "en_US",
     type: "website",
   },
+
   twitter: {
     card: "summary_large_image",
-    title: "YourName | Portfolio",
-    description: "Developer Portfolio & Anime Archive",
-    images: ["/og-preview.png"],
-    creator: "@your_handle",
+    title: "Olayeye Muideen | Creative Developer & Anime Archivist",
+    description:
+      "Bento-style portfolio showcasing curated GitHub projects and AniList archives.",
+    images: ["/api/og"],
   },
+
   robots: {
     index: true,
     follow: true,
-    googleBot: {
-      index: true,
-      follow: true,
-      "max-video-preview": -1,
-      "max-image-preview": "large",
-      "max-snippet": -1,
-    },
   },
 };
 
@@ -62,9 +72,9 @@ const geistMono = Geist_Mono({
 
 export default function RootLayout({
   children,
-}: Readonly<{
+}: {
   children: React.ReactNode;
-}>) {
+}) {
   return (
     <html lang="en">
       <body
