@@ -35,34 +35,26 @@ export default function Home() {
         <div className="absolute inset-0 opacity-[0.12] bg-[url('https://grainy-gradients.vercel.app/noise.svg')] mix-blend-soft-light" />
       </div>
 
-      <div className="relative z-10 max-w-275 mx-auto">
+      <div className="relative z-10 max-w-5xl mx-auto">
         <ScrollProgress />
 
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          // Remove the fixed [28rem] from grid-auto-rows
-          // Use auto-rows-min so the grid row shrinks/grows with the card
           className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-6 auto-rows-min"
         >
           {/* ROW 1: Header & Status */}
           <ProfileCard />
+          <ProjectCard id="p1" index={0} />
           <ClockWidget onClick={scrollToTop} />
-          {/* ROW 2: Projects */}
-          <ProjectCard id="p1" index={0} /> {/* Shows first project with tag */}
-          <ProjectCard id="p2" index={1} />{" "}
-          {/* Shows second project with tag */}
-          {/* ROW 3: Media & Interests (Both h-[28rem] for alignment) */}
-          <MusicWidget />
-          <AnimeWidget />
-          {/* ROW 4: Socials & Bio */}
-          <SocialLinksCard />
-          <METextCard />
-          {/* ROW 5: Stats & Quotes */}
-          <AchievementTracking />
-          <AnimeQuotesCard />
-          {/* ROW 6: Thoughts & GitHub Contribution Graph */}
           <ThoughtsCard />
+          <ProjectCard id="p2" index={1} /> <MusicWidget />
+          <AnimeWidget />
+          <ProjectCard id="p3" index={2} />
+          <AchievementTracking />
+          <METextCard />
+          <SocialLinksCard />
+          <AnimeQuotesCard />
           <GitHubActivity />
         </motion.div>
       </div>

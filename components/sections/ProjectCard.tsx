@@ -70,7 +70,7 @@ export function ProjectCard({ className, id, index = 0 }: ProjectCardProps) {
       <Card
         className={cn(
           responsiveHeight,
-          "min-h-75 flex flex-col items-center justify-center border-zinc-800 bg-zinc-950 w-full m-0",
+          "min-h-5 flex flex-col items-center justify-center border-zinc-800 bg-zinc-950 w-full m-0",
           className,
         )}
       >
@@ -110,7 +110,7 @@ export function ProjectCard({ className, id, index = 0 }: ProjectCardProps) {
             </div>
           )}
         </div>
-        <p className="text-sm text-zinc-400 line-clamp-3 mb-4 flex-1">
+        <p className="text-sm text-zinc-400 line-clamp-3 mb-2 flex-1">
           {project.description}
         </p>
         <div className="mt-auto pt-4 border-t border-zinc-900 flex justify-between items-center shrink-0">
@@ -126,7 +126,7 @@ export function ProjectCard({ className, id, index = 0 }: ProjectCardProps) {
   );
 
   const back = (
-    <Card className="bg-zinc-900 border-blue-500/20 p-6 flex flex-col cursor-pointer h-full w-full m-0">
+    <Card className="bg-linear-to-br from-gray-950 to-black border-blue-500/20 p-6 flex flex-col cursor-pointer h-full w-full m-0">
       <div className="mb-6 shrink-0">
         <div className="flex items-center gap-2 mb-2">
           <Code2 className="w-5 h-5 text-blue-400" />
