@@ -47,7 +47,6 @@ export function ProjectCard({ className, id, index = 0 }: ProjectCardProps) {
     fetchProjects();
   }, [fetchProjects]);
 
-  // Responsive height: Auto on mobile to close gaps, fixed 112 on desktop for alignment
   const responsiveHeight = "h-auto md:h-112";
 
   if (loading)
@@ -56,7 +55,7 @@ export function ProjectCard({ className, id, index = 0 }: ProjectCardProps) {
         className={cn(
           responsiveHeight,
           "min-h-75 flex items-center justify-center border-zinc-800 bg-zinc-950 w-full m-0",
-          className,
+          className
         )}
       >
         <div className="w-8 h-8 rounded-full border-2 border-zinc-800 border-t-blue-500 animate-spin" />
@@ -71,7 +70,7 @@ export function ProjectCard({ className, id, index = 0 }: ProjectCardProps) {
         className={cn(
           responsiveHeight,
           "min-h-75 flex flex-col items-center justify-center border-zinc-800 bg-zinc-950 w-full m-0",
-          className,
+          className
         )}
       >
         <FolderOpen className="w-10 h-10 text-zinc-800 mb-2" />
@@ -79,7 +78,12 @@ export function ProjectCard({ className, id, index = 0 }: ProjectCardProps) {
       </Card>
     );
 
-  const ogImageUrl = `${SITE_CONFIG.siteUrl}/api/og?title=${encodeURIComponent(project.title)}&tags=${encodeURIComponent(project.language || "Dev")}`;
+  // 🔹 Dynamic OG image for each project
+  const ogImageUrl = `${SITE_CONFIG.siteUrl}/api/og?title=${encodeURIComponent(
+    project.title
+  )}&description=${encodeURIComponent(
+    project.description
+  )}&tags=${encodeURIComponent(project.language || "Dev")}`;
 
   const front = (
     <Card className="p-0 flex flex-col border-zinc-800 bg-zinc-950 cursor-pointer overflow-hidden group h-full w-full m-0">
