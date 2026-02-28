@@ -1,88 +1,143 @@
 @import "tailwindcss";
 
-:root {
-  /* Force a dark aesthetic even in "light" mode based on your UI code */
-  --background: #050505;
-  --foreground: #fafafa;
-  --card-bg: #0d0d0d;
-  --accent: #10b981; /* Emerald-500 */
-}
+@plugin "tailwindcss-animate";
+
+@custom-variant dark (&:is(.dark *));
 
 @theme inline {
+  --font-sans: var(--font-geist-sans);
+  --font-mono: var(--font-jetbrains-mono);
+
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --color-card: var(--card-bg);
+
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+
   --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
 
-  /* Standardizing your Bento Height here */
-  --spacing-112: 28rem;
+  --color-destructive: var(--destructive);
+  --color-destructive-foreground: var(--destructive-foreground);
+
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+
+  --color-chart-1: var(--chart-1);
+  --color-chart-2: var(--chart-2);
+  --color-chart-3: var(--chart-3);
+  --color-chart-4: var(--chart-4);
+  --color-chart-5: var(--chart-5);
+
+  --radius-lg: var(--radius);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-sm: calc(var(--radius) - 4px);
 }
 
-/* Smooth scrolling for your portfolio sections */
-html {
-  scroll-behavior: smooth;
+:root {
+  --background: #000000;
+  --foreground: #d1d5db;
+  --card: #050505;
+  --card-foreground: #fafafa;
+  --popover: #0a0a0a;
+  --popover-foreground: #fafafa;
+  --primary: #10b981; /* Terminal Green */
+  --primary-foreground: #000000;
+  --secondary: #27272a;
+  --secondary-foreground: #fafafa;
+  --muted: #18181b;
+  --muted-foreground: #71717a;
+  --accent: #38bdf8; /* Terminal Cyan */
+  --accent-foreground: #000000;
+  --destructive: #ef4444;
+  --destructive-foreground: #fafafa;
+  --border: #1f2937;
+  --input: #1f2937;
+  --ring: #10b981;
+  --radius: 0.125rem;
 }
 
-body {
-  background-color: var(--background);
-  color: var(--foreground);
-  /* Use a more modern stack than Arial */
-  font-family: var(--font-sans), system-ui, sans-serif;
-  -webkit-font-smoothing: antialiased;
-}
-
-/* Thin custom scrollbar for ProjectCard descriptions */
-.custom-scrollbar::-webkit-scrollbar {
-  width: 4px;
-}
-
-.custom-scrollbar::-webkit-scrollbar-track {
-  background: transparent;
-}
-
-.custom-scrollbar::-webkit-scrollbar-thumb {
-  background: #27272a;
-  border-radius: 10px;
-}
-
-.custom-scrollbar::-webkit-scrollbar-thumb:hover {
-  background: #3f3f46;
-}
-/* globals.css */
+/* Custom effects for the Terminal vibe */
 @layer base {
-  a,
-  button,
-  [role="button"],
-  .cursor-pointer,
-  .embla__slide {
-    cursor: pointer !important;
+  * {
+    @apply border-border outline-ring/50;
   }
-
-  /* Ensure Navigation links show pointer */
-  nav a,
-  nav button {
-    cursor: pointer;
-  }
-
-  /* Specifically for Bento cards */
-  #music-widget,
-  #anime-widget,
-  #anime-detail,
-  .perspective-1000 {
-    cursor: pointer;
+  body {
+    @apply bg-background text-foreground font-mono antialiased;
+    background-image: 
+      radial-gradient(circle at 50% 50%, rgba(16, 185, 129, 0.03) 0%, transparent 100%),
+      linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.1) 50%),
+      linear-gradient(90deg, rgba(255, 0, 0, 0.02), rgba(0, 255, 0, 0.01), rgba(0, 0, 255, 0.02));
+    background-size: 100% 100%, 100% 4px, 100% 100%;
   }
 }
 
-/* Added for the 3D Flip effect used in ProjectCard */
-.perspective-1000 {
-  perspective: 1000px;
+/* Scrollbar styling */
+::-webkit-scrollbar {
+  width: 6px;
 }
-.preserve-3d {
-  transform-style: preserve-3d;
+::-webkit-scrollbar-track {
+  background: #000;
 }
-.backface-hidden {
-  backface-visibility: hidden;
+::-webkit-scrollbar-thumb {
+  background: #1f2937;
+  border-radius: 0px;
 }
-.rotate-y-180 {
-  transform: rotateY(180deg);
+::-webkit-scrollbar-thumb:hover {
+  background: #374151;
+}
+
+/* Omar-inspired Glassmorphism */
+.glass {
+  background: rgba(10, 10, 10, 0.7);
+  backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+/* Terminal Transition Effects */
+@keyframes scanline-flash {
+  0% { 
+    background-color: rgba(16, 185, 129, 0.15);
+    box-shadow: inset 0 0 50px rgba(16, 185, 129, 0.1);
+  }
+  100% { 
+    background-color: transparent;
+    box-shadow: inset 0 0 0px rgba(16, 185, 129, 0);
+  }
+}
+
+.terminal-flash-overlay {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 10;
+  animation: scanline-flash 0.6s ease-out forwards;
+}
+
+@keyframes text-slide-in {
+  from {
+    transform: translateY(10px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+.terminal-text-entry {
+  animation: text-slide-in 0.4s ease-out forwards;
 }
