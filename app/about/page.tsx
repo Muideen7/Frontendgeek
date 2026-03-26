@@ -1,77 +1,80 @@
-"use client";
+'use client';
 
-import React from "react";
-import { motion } from "framer-motion";
-import { Badge } from "@/components/ui/badge";
+import { motion } from 'framer-motion';
 
 export default function AboutPage() {
   return (
-    <div className="p-8 md:p-16 lg:p-24 min-h-full">
-      <motion.div 
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-        className="mb-24"
-      >
-        <span className="text-[10px] font-mono uppercase tracking-widest text-accent-about mb-4 block">About Me</span>
-        <h1 className="text-5xl md:text-7xl font-black tracking-tighter uppercase italic leading-[0.8] mb-8">
-          The <br />
-          <span className="text-muted-foreground/20">Engineer</span>
-        </h1>
-        
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-16">
-          <div className="space-y-6 text-muted-foreground text-sm md:text-base leading-relaxed">
-            <p>
-              I am Olamide Muideen Ayomide, a software engineer with a passion for building high-performance, scalable web systems. My journey in tech is driven by a curiosity for how complex systems interact and a desire to create tools that empower others.
-            </p>
-            <p>
-              With a background rooted in systems engineering (ALX) and advanced frontend development (Andela), I bridge the gap between low-level performance and high-level user experience. I believe in clean architecture, automated workflows, and the power of well-designed developer tools.
-            </p>
-            <p>
-              Outside of my core engineering work, I am the founder of <span className="text-white">TechLync</span>, where I dedicate my time to mentoring aspiring developers and building a supportive community for self-taught learners.
-            </p>
-          </div>
+    <div className="min-h-screen w-full relative px-8 md:px-16 lg:px-24 py-32 md:py-48 bg-background">
+      
+      {/* MOTIVATION & ABOUT SECTION */}
+      <section id="about" className="grid grid-cols-1 lg:grid-cols-2 gap-16 md:gap-32 items-center max-w-7xl mx-auto">
+         <motion.div 
+           initial={{ opacity: 0, x: -50 }}
+           whileInView={{ opacity: 1, x: 0 }}
+           transition={{ duration: 1, ease: [0.16, 1, 0.3, 1] }}
+           className="space-y-12"
+         >
+            <div className="space-y-6">
+               <div className="w-full h-px bg-border relative">
+                  <span className="absolute -top-4 left-0 font-mono text-[8px] tracking-[0.4em] uppercase text-muted-foreground">Philosophy</span>
+               </div>
+               <h3 className="text-4xl md:text-6xl font-light tracking-tighter uppercase leading-none">
+                  Merging <br /> <span className="text-primary italic">Logic</span> with <br /> <span className="text-primary/70">Aesthetic</span>
+               </h3>
+            </div>
 
-          <div className="space-y-12">
-            <AboutSection title="Foundations">
-              <div className="flex flex-wrap gap-2">
-                {["ALX SE", "Andela", "Systems Design", "Performance Optimization"].map((tag) => (
-                  <Badge key={tag} variant="outline" className="border-accent-about/20 text-accent-about font-mono uppercase text-[10px]">
-                    {tag}
-                  </Badge>
-                ))}
-              </div>
-            </AboutSection>
+            <div className="max-w-xl text-md md:text-lg text-muted-foreground leading-relaxed space-y-8 font-light italic">
+                 <p>
+                    I am a results-driven Frontend Engineer bridging technical precision with creative expression. I specialize in building high-fidelity user experiences and digital storytelling using Next.js, Framer Motion, and GSAP.
+                 </p>
+                 <p>
+                    I am dedicated to refining both technical execution and design sensitivity, constantly experimenting with innovative micro-interactions to create unique, impactful digital footprints.
+                 </p>
+            </div>
+            
+            <div className="pt-12 grid grid-cols-2 gap-12">
+               <div className="space-y-2">
+                  <div className="text-3xl font-light tracking-tighter">05+</div>
+                  <div className="font-mono text-[8px] tracking-[0.4em] uppercase text-muted-foreground">Years Experience</div>
+               </div>
+               <div className="space-y-2">
+                  <div className="text-3xl font-light tracking-tighter">20+</div>
+                  <div className="font-mono text-[8px] tracking-[0.4em] uppercase text-muted-foreground">Technical Labs</div>
+               </div>
+            </div>
+         </motion.div>
 
-            <AboutSection title="Personal stack">
-               <p className="text-sm text-muted-foreground italic">
-                "Code is poetry, but performance is the truth."
-               </p>
-            </AboutSection>
+         <motion.div 
+           initial={{ opacity: 0, scale: 0.95 }}
+           whileInView={{ opacity: 1, scale: 1 }}
+           transition={{ duration: 1.2, ease: [0.16, 1, 0.3, 1] }}
+           className="relative aspect-[4/5] bg-foreground/5 rounded-sm overflow-hidden border border-foreground/10 group"
+           data-cursor="pointer"
+         >
+            <img 
+               src="https://github.com/muideen7.png" 
+               alt="Olayeye Muideen" 
+               className="w-full h-full object-cover grayscale transition-all duration-1000 group-hover:grayscale-0 group-hover:scale-105"
+            />
+            <div className="absolute inset-0 bg-background/20 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center backdrop-blur-[2px]">
+               <div className="p-8 border border-white/20 text-white font-mono text-[10px] tracking-[0.6em] uppercase">Visual Identity</div>
+            </div>
+         </motion.div>
+      </section>
 
-            <AboutSection title="Experience">
-              <div className="space-y-4">
-                <div className="border-l-2 border-accent-about/20 pl-4 py-2">
-                  <h4 className="text-white font-bold text-sm">TechLync Founder</h4>
-                  <p className="text-[10px] text-muted-foreground uppercase font-mono">2023 - Present</p>
-                </div>
-                <div className="border-l-2 border-accent-about/20 pl-4 py-2 opacity-50">
-                   <h4 className="text-white font-bold text-sm">Freelance Web Architect</h4>
-                  <p className="text-[10px] text-muted-foreground uppercase font-mono">2022 - 2023</p>
-                </div>
-              </div>
-            </AboutSection>
-          </div>
-        </div>
-      </motion.div>
-    </div>
-  );
-}
+      {/* ADDITIONAL CONTENT: SKILLS SUMMARY */}
+      <section className="mt-48 pt-32 border-t border-border">
+         <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-24">
+            <div className="space-y-6">
+               <span className="font-mono text-[8px] tracking-[0.4em] uppercase text-muted-foreground">Technical Stack</span>
+               <h2 className="text-5xl font-light tracking-tighter uppercase">The Toolkit</h2>
+            </div>
+            <div className="text-lg text-muted-foreground font-light leading-relaxed">
+               I leverage a modern technological ecosystem to build scalable, high-performance web applications. My workflow is anchored in type-safety (TypeScript), modular architectures (Next.js), and cinematic fluidity (Framer Motion).
+            </div>
+         </div>
+      </section>
 
-function AboutSection({ title, children }: { title: string, children: React.ReactNode }) {
-  return (
-    <div className="space-y-4">
-      <h3 className="text-[10px] font-mono uppercase tracking-widest text-white/50">{title}</h3>
-      {children}
     </div>
   );
 }
