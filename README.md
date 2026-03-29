@@ -1,4 +1,4 @@
-# 🎨 Olayeye Muideen (FrontendGeek) — Digital Atelier
+# 🎨 Olayeye Muideen (FrontendGeek)
 
 A high-end, cinematic developer portfolio and digital atelier focused on the intersection of technical precision and creative expression. Built with **Next.js 16 (App Router)**, **Tailwind CSS v4**, and **Framer Motion**, this platform serves as a philosophy-driven showcase of full-stack engineering and UX architecture.
 
