@@ -62,7 +62,7 @@ export default function SidebarMenu() {
           <div className="flex flex-row md:flex-col gap-6 md:gap-10 font-mono text-[9px] tracking-[0.4em] uppercase select-none">
              <NavLink id="home" label="Home" href="/" />
              <NavLink id="work" label="Works" href="/works" />
-             <NavLink id="about" label="About" href="/about" />
+             <NavLink id="philosophy" label="Philosophy" href="/philosophy" />
 
           </div>
 

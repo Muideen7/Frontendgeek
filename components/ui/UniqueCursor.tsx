@@ -2,172 +2,131 @@
 
 import { useEffect, useState, useRef } from 'react';
 import { motion, useSpring, useMotionValue, AnimatePresence } from 'framer-motion';
-import { useStore } from '@/lib/store';
-
-const NAME = "MUIDEEN";
-
-interface Letter {
-  id: number;
-  char: string;
-  x: number;
-  y: number;
-}
 
 export default function UniqueCursor() {
-  const { theme } = useStore();
   const mouseX = useMotionValue(0);
   const mouseY = useMotionValue(0);
-  const [letters, setLetters] = useState<Letter[]>([]);
-  const letterIndex = useRef(0);
-  const lastSpawnPos = useRef({ x: 0, y: 0 });
   const [isHovered, setIsHovered] = useState(false);
+  const [isVisible, setIsVisible] = useState(false);
+  const [isClicking, setIsClicking] = useState(false);
+  const [isDesktop, setIsDesktop] = useState(true);
 
-  // Track number of fingers currently on the trackpad
-  const activeTouches = useRef(0);
+  // Smooth springs for the cursor components
+  const springConfig = { damping: 25, stiffness: 450 };
+  const quickSpringConfig = { damping: 20, stiffness: 800 };
 
-  const springConfig = { damping: 25, stiffness: 400 };
-  const cursorX = useSpring(mouseX, springConfig);
-  const cursorY = useSpring(mouseY, springConfig);
-
-  // Theme-aware colors — no mix-blend-difference needed
-  const isDark = theme === 'dark';
-  const dotColor = isDark ? '#FFFFFF' : '#000000';
-  const ringColor = isDark ? 'rgba(255,255,255,0.25)' : 'rgba(0,0,0,0.25)';
-  const letterColor = isDark ? '#FFFFFF' : '#1a1a1a';
-
-  const spawnLetter = (x: number, y: number) => {
-    const char = NAME[letterIndex.current];
-    const id = Date.now() + Math.random();
-    setLetters(prev => [...prev.slice(-15), { id, char, x, y }]);
-    letterIndex.current = (letterIndex.current + 1) % NAME.length;
-    lastSpawnPos.current = { x, y };
-  };
+  const dotX = useSpring(mouseX, quickSpringConfig);
+  const dotY = useSpring(mouseY, quickSpringConfig);
+  
+  const ringX = useSpring(mouseX, springConfig);
+  const ringY = useSpring(mouseY, springConfig);
 
   useEffect(() => {
-    // ── Touch tracking for multi-finger detection ──
-    const handleTouchStart = (e: TouchEvent) => {
-      activeTouches.current = e.touches.length;
-    };
-    const handleTouchEnd = (e: TouchEvent) => {
-      activeTouches.current = e.touches.length;
-    };
-    const handleTouchCancel = () => {
-      activeTouches.current = 0;
-    };
+    // Check if the device is a desktop with a fine pointer
+    if (typeof window !== 'undefined') {
+      setIsDesktop(window.matchMedia('(min-width: 768px) and (hover: hover) and (pointer: fine)').matches);
+    }
 
-    // ── Mouse movement → letter trail ──
     const handleMouseMove = (e: MouseEvent) => {
+      if (!isVisible) setIsVisible(true);
       mouseX.set(e.clientX);
       mouseY.set(e.clientY);
-
-      const dist = Math.hypot(
-        e.clientX - lastSpawnPos.current.x,
-        e.clientY - lastSpawnPos.current.y
-      );
-      if (dist > 100) {
-        spawnLetter(e.clientX, e.clientY);
-      }
     };
 
-    // ── Wheel → letter trail (single-finger trackpad only) ──
-    // Blocked by:
-    //   • ctrlKey          → macOS pinch-to-zoom (2+ fingers)
-    //   • activeTouches ≥ 2 → physical 2-finger scroll gesture
-    //   • deltaMode !== 0   → hardware mouse wheel (line/page mode)
-    //   • |deltaY| > 40     → fast mouse wheel spin
-    const handleWheel = (e: WheelEvent) => {
-      if (e.ctrlKey) return;
-      if (activeTouches.current >= 2) return;
-      if (e.deltaMode !== 0) return;
-      if (Math.abs(e.deltaY) > 40) return;
-      spawnLetter(mouseX.get(), mouseY.get());
-    };
+    const handleMouseDown = () => setIsClicking(true);
+    const handleMouseUp = () => setIsClicking(false);
 
-    const handleHover = () => setIsHovered(true);
-    const handleUnhover = () => setIsHovered(false);
-
-    window.addEventListener('touchstart', handleTouchStart, { passive: true });
-    window.addEventListener('touchend', handleTouchEnd, { passive: true });
-    window.addEventListener('touchcancel', handleTouchCancel, { passive: true });
-    window.addEventListener('mousemove', handleMouseMove);
-    window.addEventListener('wheel', handleWheel, { passive: true });
-
-    const interactables = document.querySelectorAll('a, button, [data-cursor="pointer"]');
-    interactables.forEach(el => {
-      el.addEventListener('mouseenter', handleHover);
-      el.addEventListener('mouseleave', handleUnhover);
-    });
-
-    return () => {
-      window.removeEventListener('touchstart', handleTouchStart);
-      window.removeEventListener('touchend', handleTouchEnd);
-      window.removeEventListener('touchcancel', handleTouchCancel);
-      window.removeEventListener('mousemove', handleMouseMove);
-      window.removeEventListener('wheel', handleWheel);
+    const handleMouseEnter = () => {
+      const interactables = document.querySelectorAll('a, button, [data-cursor="pointer"], .project-card');
       interactables.forEach(el => {
-        el.removeEventListener('mouseenter', handleHover);
-        el.removeEventListener('mouseleave', handleUnhover);
+        el.addEventListener('mouseenter', () => setIsHovered(true));
+        el.addEventListener('mouseleave', () => setIsHovered(false));
       });
     };
-  }, []);
+
+    window.addEventListener('mousemove', handleMouseMove);
+    window.addEventListener('mousedown', handleMouseDown);
+    window.addEventListener('mouseup', handleMouseUp);
+    
+    // Initial scan and continuous observer for dynamic elements
+    handleMouseEnter();
+    const observer = new MutationObserver(handleMouseEnter);
+    observer.observe(document.body, { childList: true, subtree: true });
+
+    return () => {
+      window.removeEventListener('mousemove', handleMouseMove);
+      window.removeEventListener('mousedown', handleMouseDown);
+      window.removeEventListener('mouseup', handleMouseUp);
+      observer.disconnect();
+    };
+  }, [isVisible, mouseX, mouseY]);
+
+  if (typeof window === 'undefined' || !isDesktop) return null;
 
   return (
-    <>
-      {/* Primary Dot — theme-aware, no blend mode */}
-      <motion.div
-        className="fixed top-0 left-0 w-3 h-3 rounded-full z-[10000] pointer-events-none"
-        style={{
-          x: cursorX,
-          y: cursorY,
-          translateX: '-50%',
-          translateY: '-50%',
-          scale: isHovered ? 4 : 1,
-          backgroundColor: dotColor,
-          // Soft invert blend only in dark mode for the glowing effect
-          mixBlendMode: isDark ? 'difference' : 'normal',
-        }}
-        transition={{ scale: { type: 'spring', damping: 20, stiffness: 300 } }}
-      />
-
-      {/* Letter Trail — theme-aware colors */}
-      <AnimatePresence>
-        {letters.map((letter) => (
+    <AnimatePresence>
+      {isVisible && isDesktop && (
+        <div className="fixed inset-0 z-[10000] pointer-events-none mix-blend-difference">
+          {/* Main Ring - Grows on hover, shrinks on click */}
           <motion.div
-            key={letter.id}
-            initial={{ opacity: 0.9, scale: 0.8, y: 0, rotate: -10 }}
-            animate={{ opacity: 0, scale: 2.2, y: -140, rotate: 10 }}
-            exit={{ opacity: 0 }}
-            transition={{ duration: 1.5, ease: [0.16, 1, 0.3, 1] }}
-            className="fixed top-0 left-0 pointer-events-none z-[9999] font-mono text-6xl md:text-8xl font-black uppercase tracking-tighter select-none"
+            className="absolute top-0 left-0 rounded-full border border-primary/40 bg-white/5"
             style={{
-              left: letter.x,
-              top: letter.y,
+              x: ringX,
+              y: ringY,
               translateX: '-50%',
               translateY: '-50%',
-              color: letterColor,
-              // In dark: invert blend creates a striking glowing effect
-              // In light: normal rendering as dark ink
-              mixBlendMode: isDark ? 'difference' : 'multiply',
+              width: isHovered ? 80 : 40,
+              height: isHovered ? 80 : 40,
             }}
-          >
-            {letter.char}
-          </motion.div>
-        ))}
-      </AnimatePresence>
+            transition={{
+                width: { type: 'spring', damping: 20, stiffness: 200 },
+                height: { type: 'spring', damping: 20, stiffness: 200 }
+            }}
+          />
 
-      {/* Outer Ring — theme-aware */}
-      <motion.div
-        className="fixed top-0 left-0 w-8 h-8 rounded-full z-[9998] pointer-events-none"
-        style={{
-          x: mouseX,
-          y: mouseY,
-          translateX: '-50%',
-          translateY: '-50%',
-          scale: isHovered ? 0 : 1,
-          border: `1px solid ${ringColor}`,
-        }}
-        transition={{ type: 'spring', damping: 15, stiffness: 250 }}
-      />
-    </>
+          {/* Inner Dot - High precision pointer */}
+          <motion.div
+            className="absolute top-0 left-0 w-1.5 h-1.5 bg-primary rounded-full shadow-[0_0_10px_rgba(255,255,255,0.8)]"
+            style={{
+              x: dotX,
+              y: dotY,
+              translateX: '-50%',
+              translateY: '-50%',
+              scale: isClicking ? 0.5 : (isHovered ? 2.5 : 1),
+            }}
+          />
+
+          {/* Velocity Line (Minimalist trail focus) */}
+          <motion.div
+            className="absolute top-0 left-0 w-px h-8 bg-gradient-to-t from-primary/30 to-transparent origin-bottom"
+            style={{
+              x: ringX,
+              y: ringY,
+              translateX: '-50%',
+              translateY: '-50%',
+              opacity: isHovered ? 0 : 0.4,
+              scaleY: isClicking ? 0 : 1,
+            }}
+          />
+          
+          {/* Hover Label Hint (Optional, very subtle) */}
+          {isHovered && (
+             <motion.div 
+               initial={{ opacity: 0, scale: 0.8 }}
+               animate={{ opacity: 1, scale: 1 }}
+               className="absolute top-0 left-0"
+               style={{
+                 x: ringX,
+                 y: ringY,
+                 translateX: '40px',
+                 translateY: '-40px',
+               }}
+             >
+                <span className="font-mono text-[8px] tracking-[0.3em] uppercase text-white/40 whitespace-nowrap">View</span>
+             </motion.div>
+          )}
+        </div>
+      )}
+    </AnimatePresence>
   );
 }

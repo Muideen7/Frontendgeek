@@ -12,8 +12,8 @@
   --secondary: #121212;
   --accent: #FFFFFF;
   --muted: #888888;
-  --muted-foreground: rgba(243, 244, 244, 0.6);
-  --border: rgba(243, 244, 244, 0.3);
+  --muted-foreground: rgba(243, 244, 244, 0.75);
+  --border: rgba(243, 244, 244, 0.25);
 }
 
 .light {
@@ -23,7 +23,7 @@
   --secondary: #F1F1F1;
   --accent: #000000;
   --muted: #444444;
-  --muted-foreground: rgba(0, 0, 0, 0.85);
+  --muted-foreground: rgba(0, 0, 0, 0.75);
   --border: rgba(0, 0, 0, 0.15);
 }
 

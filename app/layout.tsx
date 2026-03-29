@@ -22,7 +22,7 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Olayeye Muideen A",
+  title: "Olayeye Muideen (FrontendGeek)",
 
   description: "Results-driven Frontend Engineer bridging technical precision with creative expression through high-fidelity digital storytelling.",
   icons: {

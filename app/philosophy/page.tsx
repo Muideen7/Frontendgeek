@@ -2,12 +2,12 @@
 
 import { motion } from 'framer-motion';
 
-export default function AboutPage() {
+export default function PhilosophyPage() {
   return (
     <div className="min-h-screen w-full relative px-8 md:px-16 lg:px-24 py-32 md:py-48 bg-background">
       
-      {/* MOTIVATION & ABOUT SECTION */}
-      <section id="about" className="grid grid-cols-1 lg:grid-cols-2 gap-16 md:gap-32 items-center max-w-7xl mx-auto">
+      {/* PHILOSOPHY SECTION */}
+      <section id="philosophy" className="grid grid-cols-1 lg:grid-cols-2 gap-16 md:gap-32 items-center max-w-7xl mx-auto">
          <motion.div 
            initial={{ opacity: 0, x: -50 }}
            whileInView={{ opacity: 1, x: 0 }}
@@ -23,12 +23,12 @@ export default function AboutPage() {
                </h3>
             </div>
 
-            <div className="max-w-xl text-md md:text-lg text-muted-foreground leading-relaxed space-y-8 font-light italic">
+            <div className="max-w-xl text-md md:text-lg text-foreground/80 leading-relaxed md:leading-loose space-y-8 font-normal">
                  <p>
-                    I am a results-driven Frontend Engineer bridging technical precision with creative expression. I specialize in building high-fidelity user experiences and digital storytelling using Next.js, Framer Motion, and GSAP.
+                    I believe that code is an extension of design, not just a way to implement it. To me, building means finding the perfect balance between architectural integrity and visual storytelling. My workflow isn&apos;t just about matching a mockup; it&apos;s about anticipating the user&apos;s focus, using motion to guide attention, and ensuring that every interaction feels intentional.
                  </p>
                  <p>
-                    I am dedicated to refining both technical execution and design sensitivity, constantly experimenting with innovative micro-interactions to create unique, impactful digital footprints.
+                    I build with a focus on high-fidelity execution, type-safety, and cinematic fluidity—where every bracket and every semicolon serves the purpose of creating a memorable digital footprint.
                  </p>
             </div>
             
@@ -48,13 +48,13 @@ export default function AboutPage() {
            initial={{ opacity: 0, scale: 0.95 }}
            whileInView={{ opacity: 1, scale: 1 }}
            transition={{ duration: 1.2, ease: [0.16, 1, 0.3, 1] }}
-           className="relative aspect-[4/5] bg-foreground/5 rounded-sm overflow-hidden border border-foreground/10 group"
+           className="relative aspect-[4/5] bg-foreground/5 rounded-sm overflow-hidden border border-foreground/10 group shadow-2xl"
            data-cursor="pointer"
          >
             <img 
                src="https://github.com/muideen7.png" 
                alt="Olayeye Muideen" 
-               className="w-full h-full object-cover grayscale transition-all duration-1000 group-hover:grayscale-0 group-hover:scale-105"
+               className="w-full h-full object-cover transition-all duration-1000 grayscale-0 group-hover:grayscale group-hover:scale-105"
             />
             <div className="absolute inset-0 bg-background/20 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center backdrop-blur-[2px]">
                <div className="p-8 border border-white/20 text-white font-mono text-[10px] tracking-[0.6em] uppercase">Visual Identity</div>
