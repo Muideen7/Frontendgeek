@@ -1,19 +1,14 @@
-'use client';
-
-import { motion } from 'framer-motion';
+import Image from 'next/image';
 
 export default function PhilosophyPage() {
   return (
     <div className="min-h-screen w-full relative px-8 md:px-16 lg:px-24 py-32 md:py-48 bg-background">
       
       {/* PHILOSOPHY SECTION */}
-      <section id="philosophy" className="grid grid-cols-1 lg:grid-cols-2 gap-16 md:gap-32 items-center max-w-7xl mx-auto">
-         <motion.div 
-           initial={{ opacity: 0, x: -50 }}
-           whileInView={{ opacity: 1, x: 0 }}
-           transition={{ duration: 1, ease: [0.16, 1, 0.3, 1] }}
-           className="space-y-12"
-         >
+<section id="philosophy" className="grid grid-cols-1 lg:grid-cols-2 gap-16 md:gap-32 items-center max-w-7xl mx-auto">
+          <div 
+            className="space-y-12 animate-fade-in-left"
+          >
             <div className="space-y-6">
                <div className="w-full h-px bg-border relative">
                   <span className="absolute -top-4 left-0 font-mono text-[8px] tracking-[0.4em] uppercase text-muted-foreground">Philosophy</span>
@@ -42,24 +37,23 @@ export default function PhilosophyPage() {
                   <div className="font-mono text-[8px] tracking-[0.4em] uppercase text-muted-foreground">Technical Labs</div>
                </div>
             </div>
-         </motion.div>
+         </div>
 
-         <motion.div 
-           initial={{ opacity: 0, scale: 0.95 }}
-           whileInView={{ opacity: 1, scale: 1 }}
-           transition={{ duration: 1.2, ease: [0.16, 1, 0.3, 1] }}
-           className="relative aspect-[4/5] bg-foreground/5 rounded-sm overflow-hidden border border-foreground/10 group shadow-2xl"
-           data-cursor="pointer"
-         >
-            <img 
+<div 
+            className="relative aspect-[4/5] bg-foreground/5 rounded-sm overflow-hidden border border-foreground/10 group shadow-2xl animate-fade-in-scale"
+            data-cursor="pointer"
+          >
+            <Image 
                src="https://github.com/muideen7.png" 
                alt="Olayeye Muideen" 
-               className="w-full h-full object-cover transition-all duration-1000 grayscale-0 group-hover:grayscale group-hover:scale-105"
+               fill
+               sizes="(max-width: 768px) 100vw, 50vw"
+               className="object-cover transition-all duration-1000 grayscale-0 group-hover:grayscale group-hover:scale-105"
             />
             <div className="absolute inset-0 bg-background/20 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center backdrop-blur-[2px]">
                <div className="p-8 border border-white/20 text-white font-mono text-[10px] tracking-[0.6em] uppercase">Visual Identity</div>
             </div>
-         </motion.div>
+</div>
       </section>
 
       {/* ADDITIONAL CONTENT: SKILLS SUMMARY */}

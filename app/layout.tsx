@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import { Syne, Geist_Mono } from "next/font/google";
-import { Github, Twitter, Linkedin, Mail, ArrowUpRight } from "lucide-react";
+import { Github, Twitter, ArrowUpRight } from "lucide-react";
 import SidebarMenu from "@/components/ui/SidebarMenu";
 import SmoothScroll from "@/components/ui/SmoothScroll";
 import UniqueCursor from "@/components/ui/UniqueCursor";
@@ -74,10 +74,10 @@ export default function RootLayout({
                   </div>
                   
                   <div className="flex flex-wrap gap-8 md:gap-12 font-mono text-[9px] tracking-widest uppercase items-center">
-                     <a href="https://github.com/muideen7" target="_blank" className="flex items-center gap-2 group hover:text-primary transition-colors text-muted-foreground">
+                     <a href="https://github.com/muideen7" target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 group hover:text-primary transition-colors text-muted-foreground">
                         <Github size={14} strokeWidth={1} /> GitHub
                      </a>
-                     <a href="https://x.com/OlayeyeMuideen" target="_blank" className="flex items-center gap-2 group hover:text-primary transition-colors text-muted-foreground">
+                     <a href="https://x.com/OlayeyeMuideen" target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 group hover:text-primary transition-colors text-muted-foreground">
                         <Twitter size={14} strokeWidth={1} /> Twitter
                      </a>
                      <a href="mailto:olayeyeayomide2@gmail.com" className="flex items-center gap-3 py-3 px-8 border border-border rounded-full hover:bg-primary hover:text-background transition-all duration-700 group">

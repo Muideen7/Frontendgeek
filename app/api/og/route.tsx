@@ -5,9 +5,16 @@ export const runtime = 'edge';
 
 export async function GET(request: NextRequest) {
   const { searchParams } = new URL(request.url);
-  const name = searchParams.get('name') ?? 'Project';
-  const description = searchParams.get('description') ?? '';
-  const tags = (searchParams.get('tags') ?? '').split(',').filter(Boolean);
+  const rawName = searchParams.get('name') ?? 'Project';
+  const rawDescription = searchParams.get('description') ?? '';
+  const rawTags = searchParams.get('tags') ?? '';
+
+  // Input validation: prevent XSS by removing dangerous characters
+  const sanitize = (str: string) => str.replace(/[<>&"']/g, '');
+  
+  const name = sanitize(rawName).slice(0, 100);
+  const description = sanitize(rawDescription).slice(0, 500);
+  const tags = sanitize(rawTags).split(',').filter(Boolean).slice(0, 5);
 
   return new ImageResponse(
     (
