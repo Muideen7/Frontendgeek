@@ -74,59 +74,25 @@ export default function UniqueCursor() {
     <AnimatePresence>
       {isVisible && isDesktop && (
         <div className="fixed inset-0 z-[10000] pointer-events-none">
-          {/* Main Ring - expands on hover, matching theme */}
+          {/* Selective Lens - only visible on hover */}
           <motion.div
-            className={`absolute top-0 left-0 rounded-full border transition-colors duration-200 ${isHovered ? 'bg-foreground/5 border-transparent' : 'bg-transparent border-foreground/30'}`}
+            className="absolute top-0 left-0 w-16 h-16 rounded-full border border-primary/40 bg-primary/5 backdrop-blur-[1px]"
             style={{
               x: ringX,
               y: ringY,
               translateX: '-50%',
               translateY: '-50%',
             }}
+            initial={{ scale: 0, opacity: 0 }}
             animate={{
-              width: isHovered ? 64 : 32,
-              height: isHovered ? 64 : 32,
-              scale: isClicking ? 0.85 : 1,
-            }}
-            transition={{
-                type: 'spring', damping: 20, stiffness: 250
-            }}
-          />
-
-          {/* Inner Dot - High precision pointer */}
-          <motion.div
-            className="absolute top-0 left-0 w-2 h-2 bg-foreground rounded-full"
-            style={{
-              x: dotX,
-              y: dotY,
-              translateX: '-50%',
-              translateY: '-50%',
-            }}
-            animate={{
-              scale: isHovered ? 0 : (isClicking ? 0.6 : 1),
-              opacity: isHovered ? 0 : 1,
-            }}
-            transition={{
-              type: 'spring', damping: 25, stiffness: 400
-            }}
-          />
-
-          {/* Tiny center dot when hovered for visual lock */}
-          <motion.div
-            className="absolute top-0 left-0 w-1.5 h-1.5 bg-foreground rounded-full"
-            style={{
-              x: dotX,
-              y: dotY,
-              translateX: '-50%',
-              translateY: '-50%',
-            }}
-            initial={false}
-            animate={{
-              scale: isHovered ? 1 : 0,
+              scale: isHovered ? 1.5 : 0,
               opacity: isHovered ? 1 : 0,
             }}
+            exit={{ scale: 0, opacity: 0 }}
             transition={{
-              type: 'spring', damping: 20, stiffness: 400
+              type: 'spring',
+              damping: 25,
+              stiffness: 300
             }}
           />
         </div>

@@ -6,6 +6,8 @@ import { Github, Linkedin, Mail, Twitter, Menu, X } from 'lucide-react';
 import { motion } from 'framer-motion';
 import { usePathname } from 'next/navigation';
 import Link from 'next/link';
+import ThemeToggle from './ThemeToggle';
+import Logo from './Logo';
 
 const NavLink = ({ 
   id, 
@@ -57,11 +59,11 @@ export default function SidebarMenu() {
 
   useEffect(() => {
     if (pathname !== '/') return;
-    const sections = ['home', 'work', 'about'];
+    const sections = ['about', 'experience', 'work', 'contact'];
     const observerOptions = {
       root: null,
       rootMargin: '0px',
-      threshold: 0.5,
+      threshold: 0.2,
     };
 
     const observer = new IntersectionObserver((entries) => {
@@ -84,34 +86,55 @@ export default function SidebarMenu() {
   return (
     <>
       {/* Mobile Top Bar */}
-      <div className="md:hidden fixed top-0 left-0 w-full h-24 z-50 flex justify-between items-center px-8 border-b border-border bg-background/80 backdrop-blur-md pointer-events-auto">
-        <span className="font-sans font-bold text-xl tracking-tighter uppercase">O.M.</span>
-        <button 
-          onClick={() => setIsOpen(!isOpen)}
-          className="p-2 -mr-2 text-foreground focus:outline-none z-50 mr-12" /* mr-12 to avoid overlap with Theme Toggle */
-          aria-label="Toggle Menu"
-        >
-          {isOpen ? <X size={24} strokeWidth={1.5} /> : <Menu size={24} strokeWidth={1.5} />}
-        </button>
+      <div className="md:hidden fixed top-0 left-0 w-full h-24 z-[60] flex justify-between items-center px-8 border-b border-border bg-background/80 backdrop-blur-md pointer-events-auto">
+        <Link href="/" className="flex items-center gap-2">
+          <Logo size={48} />
+        </Link>
+        <div className="flex items-center gap-4">
+          <ThemeToggle />
+          <button 
+            onClick={() => setIsOpen(!isOpen)}
+            className="p-2 text-foreground focus:outline-none cursor-pointer"
+            aria-label="Toggle Menu"
+          >
+            {isOpen ? <X size={24} strokeWidth={1.5} /> : <Menu size={24} strokeWidth={1.5} />}
+          </button>
+        </div>
       </div>
 
       {/* Desktop Sidebar & Mobile Menu Overlay */}
       <aside className={`fixed left-0 top-24 md:top-0 h-[calc(100vh-6rem)] md:h-full w-full md:w-32 z-40 md:z-50 flex flex-col justify-center md:justify-start items-center md:items-start p-6 md:py-20 md:px-8 border-r-0 md:border-r border-border pointer-events-auto md:pointer-events-none md:bg-transparent bg-background md:backdrop-blur-none transition-all duration-500 ease-in-out md:translate-y-0 ${isOpen ? 'translate-y-0 opacity-100' : '-translate-y-[120%] md:translate-y-0 opacity-0 md:opacity-100'}`}>
-         
          <div className="flex flex-col items-center md:items-start gap-12 md:gap-20 pointer-events-auto h-full justify-center md:justify-start w-full">
-          {/* Nav Tabs */}
-          <div className="flex flex-col gap-8 md:gap-10 font-mono text-[14px] md:text-[9px] tracking-[0.4em] md:tracking-[0.4em] uppercase select-none items-center md:items-start">
-             <NavLink id="home" label="Home" href="/" pathname={pathname} activeSection={activeSection} setIsOpen={setIsOpen} />
-             <NavLink id="work" label="Works" href="/works" pathname={pathname} activeSection={activeSection} setIsOpen={setIsOpen} />
-             <NavLink id="philosophy" label="Philosophy" href="/philosophy" pathname={pathname} activeSection={activeSection} setIsOpen={setIsOpen} />
+          {/* Logo - Desktop only here */}
+          <div className="hidden md:block">
+            <Logo size={48} />
           </div>
+
+          {/* Nav Links */}
+          <div className="flex flex-col gap-10 md:gap-10 font-mono text-[16px] md:text-[9px] tracking-[0.4em] md:tracking-[0.4em] uppercase select-none items-center md:items-start text-center md:text-left">
+             <NavLink id="about" label="01. About" href="/#about" pathname={pathname} activeSection={activeSection} setIsOpen={setIsOpen} />
+             <NavLink id="experience" label="02. Experience" href="/#experience" pathname={pathname} activeSection={activeSection} setIsOpen={setIsOpen} />
+             <NavLink id="work" label="03. Work" href="/#work" pathname={pathname} activeSection={activeSection} setIsOpen={setIsOpen} />
+             <NavLink id="contact" label="04. Contact" href="/#contact" pathname={pathname} activeSection={activeSection} setIsOpen={setIsOpen} />
+          </div>
+
+
 
           {/* Socials - Directly Under Nav on desktop, bottom on mobile */}
           <div className="flex flex-row md:flex-col gap-8 md:gap-8 opacity-100 mt-auto md:mt-0 mb-12 md:mb-0">
-             <a href="https://linkedin.com/in/muideen7" target="_blank" rel="noopener noreferrer" className="hover:text-primary transition-all transform hover:scale-110"><Linkedin size={24} strokeWidth={1.5} className="md:w-5 md:h-5 md:stroke-1" /></a>
-             <a href="https://x.com/OlayeyeMuideen" target="_blank" rel="noopener noreferrer" className="hover:text-primary transition-all transform hover:scale-110"><Twitter size={24} strokeWidth={1.5} className="md:w-5 md:h-5 md:stroke-1" /></a>
-             <a href="https://github.com/muideen7" target="_blank" rel="noopener noreferrer" className="hover:text-primary transition-all transform hover:scale-110"><Github size={24} strokeWidth={1.5} className="md:w-5 md:h-5 md:stroke-1" /></a>
-             <a href="mailto:olayeyeayomide2@gmail.com" className="hover:text-primary transition-all transform hover:scale-110"><Mail size={24} strokeWidth={1.5} className="md:w-5 md:h-5 md:stroke-1" /></a>
+             <a href="https://linkedin.com/in/muideen7" target="_blank" rel="noopener noreferrer" className="hover:text-primary transition-all duration-300 transform hover:scale-125 hover:-translate-y-1"><Linkedin size={24} strokeWidth={1.5} className="md:w-5 md:h-5 md:stroke-1" /></a>
+             <a href="https://x.com/OlayeyeMuideen" target="_blank" rel="noopener noreferrer" className="hover:text-primary transition-all duration-300 transform hover:scale-125 hover:-translate-y-1"><Twitter size={24} strokeWidth={1.5} className="md:w-5 md:h-5 md:stroke-1" /></a>
+             <a href="https://github.com/muideen7" target="_blank" rel="noopener noreferrer" className="hover:text-primary transition-all duration-300 transform hover:scale-125 hover:-translate-y-1"><Github size={24} strokeWidth={1.5} className="md:w-5 md:h-5 md:stroke-1" /></a>
+             <button 
+                onClick={() => {
+                  navigator.clipboard.writeText('olayeyeayomide2@gmail.com');
+                  alert('Email copied to clipboard!');
+                }}
+                className="hover:text-primary transition-all duration-300 transform hover:scale-125 hover:-translate-y-1 cursor-pointer"
+                title="Copy Email"
+             >
+                <Mail size={24} strokeWidth={1.5} className="md:w-5 md:h-5 md:stroke-1" />
+             </button>
           </div>
        </div>
 
