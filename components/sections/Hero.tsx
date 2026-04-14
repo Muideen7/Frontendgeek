@@ -6,16 +6,22 @@ import { motion } from "framer-motion";
 const SKILLS = [
   {
     category: "Frontend",
-    items: ["React / Next.js", "TypeScript", "Tailwind CSS", "Framer Motion", "GSAP"]
+    items: [
+      "React / Next.js",
+      "TypeScript",
+      "Tailwind CSS",
+      "Framer Motion",
+      "GSAP",
+    ],
   },
   {
     category: "Backend",
-    items: ["Node.js", "Express", "Prisma", "Python", "PostgreSQL"]
+    items: ["Node.js", "Express", "Prisma", "Python", "MongoDB"],
   },
   {
     category: "Tools & Environment",
-    items: ["Git / GitHub", "Bash / Shell", "Vercel", "Figma", "VS Code"]
-  }
+    items: ["Git / GitHub", "Bash / Shell", "Vercel", "Figma", "VS Code"],
+  },
 ];
 
 export default function Hero() {
@@ -26,7 +32,7 @@ export default function Hero() {
     >
       <div className="flex flex-col justify-center space-y-6">
         <div className="space-y-0 text-left">
-          <motion.h1 
+          <motion.h1
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8 }}
@@ -34,7 +40,7 @@ export default function Hero() {
           >
             OLAYEYE <br /> MUIDEEN
           </motion.h1>
-          <motion.p 
+          <motion.p
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ duration: 0.8, delay: 0.2 }}
@@ -44,7 +50,7 @@ export default function Hero() {
           </motion.p>
         </div>
 
-        <motion.div 
+        <motion.div
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ duration: 0.8, delay: 0.4 }}
@@ -66,8 +72,8 @@ export default function Hero() {
       <div className="flex flex-col justify-center">
         <div className="grid grid-cols-1 md:grid-cols-2 gap-12">
           {SKILLS.map((cat, i) => (
-            <motion.div 
-              key={cat.category} 
+            <motion.div
+              key={cat.category}
               initial={{ opacity: 0, x: 20 }}
               animate={{ opacity: 1, x: 0 }}
               transition={{ duration: 0.6, delay: 0.5 + i * 0.1 }}
