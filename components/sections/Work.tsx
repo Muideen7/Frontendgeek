@@ -19,9 +19,9 @@ interface Project {
 }
 
 export default function Work() {
-  const featuredIds = ["devmentor", "lexiclear", "crdev"];
+  const featuredIds = ["devmentor", "eteck", "lexiclear", "mindflow"];
   
-  // Sort and filter: DevMentor first, then LexiClear, then CRDev
+  // Sort and filter: DevMentor first, then LexiClear, then MindFlow
   const featured = featuredIds.map(id => 
     FEATURED_PROJECTS.find(p => p.id === id)
   ).filter(Boolean);
@@ -74,7 +74,16 @@ function FeaturedProject({ project, reverse }: { project: Project, reverse: bool
           fill
           unoptimized
           className="object-cover grayscale hover:grayscale-0 transition-all duration-700 scale-105 group-hover:scale-110"
+          onError={(e) => {
+            const target = e.target as HTMLImageElement;
+            target.style.display = 'none';
+          }}
         />
+        <div className="absolute inset-0 flex items-center justify-center bg-foreground/5">
+          <span className="text-2xl md:text-4xl font-black tracking-tighter uppercase text-muted-foreground/30 text-center px-4">
+            {project.name}
+          </span>
+        </div>
         <div className="absolute inset-0 bg-primary/20 group-hover:bg-transparent transition-colors duration-500" />
       </div>
 
