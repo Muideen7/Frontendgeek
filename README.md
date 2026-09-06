@@ -1,6 +1,6 @@
 # 🎨 Olayeye Muideen (FrontendGeek)
 
-A high-end, cinematic developer portfolio and digital atelier focused on the intersection of technical precision and creative expression. Built with **Next.js 16 (App Router)**, **Tailwind CSS v4**, and **Framer Motion**, this platform serves as a philosophy-driven showcase of full-stack engineering and UX architecture.
+A high-end, cinematic developer portfolio and digital atelier focused on the intersection of technical precision and creative expression. Built with **Next.js 16 (App Router)**, **Tailwind CSS v4**[...] 
 
 [![Next.js](https://img.shields.io/badge/Next.js-16.1.6-black?style=flat-square&logo=next.js)](https://nextjs.org/)
 [![TypeScript](https://img.shields.io/badge/TypeScript-5.0-blue?style=flat-square&logo=typescript)](https://www.typescriptlang.org/)
@@ -36,6 +36,21 @@ A high-end, cinematic developer portfolio and digital atelier focused on the int
 - **Backend/DB:** Node.js, Express, Prisma, PostgreSQL
 - **Tools:** GitHub Workspace, Bash/Shell, Figma, Vercel
 
+## 🚀 Featured Projects
+
+- DataBes — A data-focused project and demo  
+  - Repo: https://github.com/Muideen7/DataBes  
+  - Live (deployed): https://databes.vercel.app
+
+- deepstyle — Deep-style image processing / experiments  
+  - Repo: (please confirm if the repo is under a different name; I couldn't find a repo named "deepstyle" in your account)  
+  - Live (deployed): https://deepstyle-seven.vercel.app
+
+- MTNyLink — Browser extension / link tool (not deployed; links to GitHub repo)  
+  - Repo: https://github.com/Muideen7/MTNyLink  
+  - Live (deployed): Not deployed (links to GitHub repo). Recommended OG image (use GitHub mark): https://github.githubassets.com/images/modules/logos_page/GitHub-Mark.png
+
+
 ## ⚙️ Project Structure
 
 ```
@@ -53,42 +68,8 @@ Frontendgeek/
 └── public/              # Optimized static assets
 ```
 
-## 🚀 Getting Started
-
-### Prerequisites
-- Node.js 20.x or higher
-- Git
-
-### Installation
-1.  **Clone the Repository**
-    ```bash
-    git clone https://github.com/Muideen7/Frontendgeek.git
-    cd Frontendgeek
-    ```
-2.  **Install Dependencies**
-    ```bash
-    npm install
-    ```
-3.  **Run Development Server**
-    ```bash
-    npm run dev
-    ```
-
-## 👤 Author: Olayeye Muideen
-
-Building products that are as functional as they are memorable.
-
-- **GitHub:** [@Muideen7](https://github.com/Muideen7)
-- **Twitter:** [@OlayeyeMuideen](https://twitter.com/OlayeyeMuideen)
-- **Reach Out:** olayeyeayomide2@gmail.com
-
 ---
 
 <p align="center">Built with precision and purpose by Olayeye Muideen (FrontendGeek) — 2026</p>
-o?style=social)
-![GitHub forks](https://img.shields.io/github/forks/Muideen7/portfolio?style=social)
-![GitHub watchers](https://img.shields.io/github/watchers/Muideen7/portfolio?style=social)
-
----
 
 <p align="center">Made with ❤️ and ☕ by Olayeye Muideen Ayomide</p>
