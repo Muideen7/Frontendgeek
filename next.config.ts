@@ -11,8 +11,7 @@ const nextConfig: NextConfig = {
       { protocol: "https", hostname: "mlndflow.vercel.app" },
       { protocol: "https", hostname: "lexi-clear-legal.vercel.app" },
       { protocol: "https", hostname: "nova-chi-black.vercel.app" },
-      { protocol: "https", hostname: "dev-mentor-nu.vercel.app" },
-      { protocol: "https", hostname: "crdev.vercel.app" },
+      { protocol: "https", hostname: "dev-mentor-nu.vercel.app" }
     ],
   },
 };
