@@ -11,6 +11,46 @@ function ogUrl(name: string, description: string, tags: string[]): string {
 
 export const FEATURED_PROJECTS = [
   {
+    id: 'databes',
+    name: 'DataBes',
+    description: 'A Data Company — demos and utilities for data-driven workflows and ETL experiments.',
+    url: 'https://databes.vercel.app',
+    tags: ['Data', 'Next.js', 'Prisma'],
+    year: '2026',
+    role: 'Founder / Dev',
+    get image() {
+      return ogUrl(this.name, this.description, this.tags);
+    },
+    remoteImage: 'https://databes.vercel.app/opengraph-image.png',
+  },
+  {
+    id: 'deepstyle',
+    name: 'deepstyle',
+    description: 'Deep-style image processing experiments — neural style transfer and generative pipelines for creative image synthesis.',
+    url: 'https://deepstyle-seven.vercel.app',
+    tags: ['AI', 'Image Processing', 'Deep Learning'],
+    year: '2026',
+    role: 'Research / Frontend',
+    get image() {
+      return ogUrl(this.name, this.description, this.tags);
+    },
+    remoteImage: 'https://deepstyle-seven.vercel.app/opengraph-image.png',
+  },
+  {
+    id: 'mtnylink',
+    name: 'MTNyLink',
+    description: 'A lightweight browser extension for enriched link previews and OG helpers.',
+    url: 'https://github.com/Muideen7/MTNyLink',
+    tags: ['Extension', 'Browser', 'OG'],
+    year: '2026',
+    role: 'Author',
+    get image() {
+      // MTNyLink is not deployed — use the GitHub mark as the OG image as requested.
+      return 'https://github.githubassets.com/images/modules/logos_page/GitHub-Mark.png';
+    },
+    remoteImage: 'https://github.githubassets.com/images/modules/logos_page/GitHub-Mark.png',
+  },
+  {
     id: 'devmentor',
     name: 'DevMentor',
     description: 'AI-powered mentorship for self-taught developers. Personalized roadmaps, code review, daily check-ins, and a mentor that remembers your entire journey.',
@@ -26,7 +66,7 @@ export const FEATURED_PROJECTS = [
   {
     id: 'lexiclear',
     name: 'LexiClear',
-    description: 'LexiClear AI | An enterprise-grade AI contract intelligence platform. Featuring real-time neural risk detection and "Plain English" translation, LexiClear bridges the gap between complex legalese.',
+    description: 'LexiClear AI | An enterprise-grade AI contract intelligence platform. Featuring real-time neural risk detection and "Plain English" translation.',
     url: 'https://lexi-clear-legal.vercel.app/',
     tags: ['Prisma', 'Next.js', 'Legal Tech', 'AI'],
     year: '2026',
@@ -78,7 +118,7 @@ export const FEATURED_PROJECTS = [
   {
     id: 'petpeeps',
     name: 'PetPeeps',
-    description: 'PetPeeps is a high-fidelity, modern landing page for a premier pet care platform. Designed with a focus on vibrant aesthetics, smooth interactions, and a professional-grade user experience, it serves as the digital storefront for a service that treats pets like family.',
+    description: 'PetPeeps is a high-fidelity, modern landing page for a premier pet care platform. Designed with a focus on vibrant aesthetics, smooth interactions, and a professional-grade user experience.',
     url: 'https://pet-peeps.vercel.app/',
     tags: ['Next.js', 'Tailwind CSS', 'Framer Motion', 'UI/UX'],
     year: '2026',
@@ -91,7 +131,7 @@ export const FEATURED_PROJECTS = [
   {
     id: 'sagestream',
     name: 'SageStream',
-    description: 'SageStream is a high-performance streaming platform dedicated to Anime and Donghua enthusiasts. It features a cinematic user interface, lightning-fast content delivery, and personalized discovery algorithms, providing a seamless viewing experience for global animation fans.',
+    description: 'SageStream is a high-performance streaming platform dedicated to Anime and Donghua enthusiasts. It features a cinematic user interface and lightning-fast content delivery.',
     url: 'https://sage-stream-peach.vercel.app/',
     tags: ['Next.js', 'Tailwind CSS', 'Streaming', 'UI/UX'],
     year: '2026',
@@ -104,7 +144,7 @@ export const FEATURED_PROJECTS = [
   {
     id: 'eteck',
     name: 'Eteck',
-    description: 'A premium gadget e-commerce platform featuring a sleek, high-performance interface for tech enthusiasts. Built with a focus on speed, security, and a futuristic aesthetic.',
+    description: 'A premium gadget e-commerce platform featuring a sleek, high-performance interface for tech enthusiasts.',
     url: 'https://eteck.vercel.app/',
     tags: ['Next.js', 'Tailwind CSS', 'E-commerce', 'Gadgets'],
     year: '2026',
