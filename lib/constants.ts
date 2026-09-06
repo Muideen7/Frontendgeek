@@ -77,19 +77,6 @@ export const FEATURED_PROJECTS = [
     remoteImage: 'https://lexi-clear-legal.vercel.app/opengraph-image.png',
   },
   {
-    id: 'crdev',
-    name: 'CRDev Hub',
-    description: 'A creative developer repository and technical showcase platform for high-end digital footprints and modern UI.',
-    url: 'https://crdev.vercel.app/',
-    tags: ['Next.js', 'Framer Motion', 'Showcase', 'UI/UX'],
-    year: '2026',
-    role: 'Design System / Dev',
-    get image() {
-      return ogUrl(this.name, this.description, this.tags);
-    },
-    remoteImage: 'https://crdev.vercel.app/opengraph-image.png',
-  },
-  {
     id: 'mindflow',
     name: 'MindFlow',
     description: 'A production-ready SaaS platform for team collaboration and productivity. Built with modern technologies and best practices.',
@@ -116,32 +103,6 @@ export const FEATURED_PROJECTS = [
     remoteImage: 'https://nova-chi-black.vercel.app/opengraph-image.png',
   },
   {
-    id: 'petpeeps',
-    name: 'PetPeeps',
-    description: 'PetPeeps is a high-fidelity, modern landing page for a premier pet care platform. Designed with a focus on vibrant aesthetics, smooth interactions, and a professional-grade user experience.',
-    url: 'https://pet-peeps.vercel.app/',
-    tags: ['Next.js', 'Tailwind CSS', 'Framer Motion', 'UI/UX'],
-    year: '2026',
-    role: 'Frontend / UI Design',
-    get image() {
-      return ogUrl(this.name, this.description, this.tags);
-    },
-    remoteImage: 'https://pet-peeps.vercel.app/opengraph-image.png',
-  },
-  {
-    id: 'sagestream',
-    name: 'SageStream',
-    description: 'SageStream is a high-performance streaming platform dedicated to Anime and Donghua enthusiasts. It features a cinematic user interface and lightning-fast content delivery.',
-    url: 'https://sage-stream-peach.vercel.app/',
-    tags: ['Next.js', 'Tailwind CSS', 'Streaming', 'UI/UX'],
-    year: '2026',
-    role: 'Frontend / UX Design',
-    get image() {
-      return ogUrl(this.name, this.description, this.tags);
-    },
-    remoteImage: 'https://sage-stream-peach.vercel.app/opengraph-image.png',
-  },
-  {
     id: 'eteck',
     name: 'Eteck',
     description: 'A premium gadget e-commerce platform featuring a sleek, high-performance interface for tech enthusiasts.',
@@ -166,18 +127,5 @@ export const FEATURED_PROJECTS = [
       return ogUrl(this.name, this.description, this.tags);
     },
     remoteImage: 'https://meensvarieties.vercel.app/opengraph-image.png',
-  },
-  {
-    id: 'radiantpixels',
-    name: 'Radiant Pixels',
-    description: 'A world-class digital design agency crafting immersive visual identities and high-fidelity web experiences for brands that demand excellence.',
-    url: 'https://radiant-pixels.vercel.app/',
-    tags: ['Design Agency', 'Framer Motion', 'Visual Identity'],
-    year: '2026',
-    role: 'Lead Designer / Dev',
-    get image() {
-      return ogUrl(this.name, this.description, this.tags);
-    },
-    remoteImage: 'https://radiant-pixels.vercel.app/opengraph-image.png',
   },
 ];
